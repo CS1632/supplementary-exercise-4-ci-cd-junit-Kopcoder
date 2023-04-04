@@ -57,17 +57,16 @@ jobs:
     needs: [maven_test]  # Enforces that maven_test runs first
     
     runs-on: ubuntu-latest
-    
-    - name: Restore cached build
-      uses: actions/cache@v3
-      with:
-        key: cached-build-${{github.sha}}
-        path: .
 
     permissions:
       contents: write
 
     steps:
+    - name: Restore cached build
+      uses: actions/cache@v3
+      with:
+        key: cached-build-${{github.sha}}
+        path: .
 
     # https://github.com/marketplace/actions/maven-dependency-tree-dependency-submission
     - name: Update dependency graph
