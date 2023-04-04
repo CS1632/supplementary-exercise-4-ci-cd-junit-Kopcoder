@@ -65,7 +65,7 @@ jobs:
         path: .
 
     permissions:
-      contents: read
+      contents: write
 
     steps:
 
