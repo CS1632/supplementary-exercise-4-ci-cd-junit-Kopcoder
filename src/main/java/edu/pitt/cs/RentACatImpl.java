@@ -1,6 +1,7 @@
 package edu.pitt.cs;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Scanner;
 
 public class RentACatImpl implements RentACat {
@@ -18,8 +19,13 @@ public class RentACatImpl implements RentACat {
 	 */
 
 	public boolean returnCat(int id) {
-		// TODO
-		return false;
+		for (Cat currCat : cats) {			// iterate through cats list
+			if (currCat.getId() == id) {	// return cat and return true if desired cat is encountered
+				currCat.returnCat();
+				return true;
+			}
+		}
+		return false;	// return false if cat does not exist
 	}
 
 	/**
@@ -33,7 +39,11 @@ public class RentACatImpl implements RentACat {
 	 */
 
 	public boolean rentCat(int id) {
-		// TODO
+		Cat c = getCat(id);
+		if (c != null && !c.getRented()) {
+			c.rentCat();
+			return true;
+		}
 		return false;
 	}
 
@@ -48,8 +58,15 @@ public class RentACatImpl implements RentACat {
 	 */
 
 	public String listCats() {
-		// TODO
-		return "WRITE CODE FOR THIS";
+		String re = "";
+		for (Iterator<Cat> i = cats.listIterator(); i.hasNext(); ) {
+			Cat hold = i.next();
+			if(!hold.getRented()) {
+				re = re.concat(hold.toString() + "\n");
+			}
+		}
+
+		return re;
 	}
 
 	/**
@@ -62,8 +79,12 @@ public class RentACatImpl implements RentACat {
 	 */
 
 	public boolean catExists(int id) {
-		// TODO
-		return false;
+		for (Cat currCat : cats) {	// iterate through cats list
+			if (currCat.getId() == id) {	// return true if desired cat is encountered
+				return true;
+			}
+		}
+		return false;	// return false if the loop runs without finding the desired cat
 	}
 
 	/**
