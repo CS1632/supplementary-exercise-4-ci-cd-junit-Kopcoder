@@ -67,7 +67,11 @@ jobs:
       with:
         key: cached-build-${{github.sha}}
         path: .
-        
+
+    # https://github.com/marketplace/actions/maven-dependency-tree-dependency-submission
+    - name: Update dependency graph
+      uses: advanced-security/maven-dependency-submission-action@v2
+
   sonarqube_test:
 
     needs: [maven_test]
@@ -90,8 +94,3 @@ jobs:
       env:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         SONAR_HOST_URL: https://sonarcloud.io
-
-    # https://github.com/marketplace/actions/maven-dependency-tree-dependency-submission
-    - name: Update dependency graph
-      uses: advanced-security/maven-dependency-submission-action@v2
-
